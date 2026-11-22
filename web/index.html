@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daylight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <h1 class="mark">Daylight</h1>
+  <nav class="modes" role="tablist" aria-label="Was gestaltet wird">
+    <button type="button" role="tab" id="tabText" aria-controls="controls" aria-selected="true">Text</button>
+    <button type="button" role="tab" id="tabScenes" aria-controls="scenesPanel" aria-selected="false">Animationen</button>
+  </nav>
+  <p class="conn" id="conn" data-state="wait"><span class="conn-dot" aria-hidden="true"></span><span id="connText">Suche das Display …</span></p>
+</header>
+
+<main>
+  <section class="stage" aria-label="Vorschau">
+    <div class="slab"><canvas id="led" role="img" aria-label="Vorschau der LED-Anzeige"></canvas></div>
+    <div class="stage-meta">
+      <p id="draftState" class="draft-state"></p>
+      <div class="transport" id="transport">
+        <button type="button" class="icon" id="prev" aria-label="Ein Bild zurück"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+        <button type="button" class="icon" id="play" aria-label="Pause"><svg viewBox="0 0 16 16" id="playIcon"><path d="M5 3v10M11 3v10"/></svg></button>
+        <button type="button" class="icon" id="next" aria-label="Ein Bild weiter"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
+        <span id="frameInfo" class="frame-info"></span>
+      </div>
+    </div>
+  </section>
+
+  <form class="controls" id="controls" role="tabpanel" aria-labelledby="tabText" autocomplete="off" onsubmit="return false">
+    <fieldset class="col col-text">
+      <legend>Text</legend>
+
+      <div class="panel-tabs" id="panelTabs" role="radiogroup" aria-label="Panel bearbeiten" hidden></div>
+
+      <div class="seg" role="radiogroup" aria-label="Zeilen">
+        <label><input type="radio" name="z-lines" value="1"><span>Eine Zeile</span></label>
+        <label><input type="radio" name="z-lines" value="2"><span>Zwei Zeilen</span></label>
+      </div>
+
+      <label class="textline">
+        <span class="sr">Text</span>
+        <input type="text" name="z-text" id="text1" maxlength="160" placeholder="Was soll leuchten?" spellcheck="false">
+      </label>
+      <label class="textline" id="line2Wrap">
+        <span class="sr">Zweite Zeile</span>
+        <input type="text" name="z-text2" maxlength="160" placeholder="Zweite Zeile" spellcheck="false">
+      </label>
+
+      <div class="field">
+        <span class="field-label">Schrift</span>
+        <div class="font-tiles" id="fontTiles" role="radiogroup" aria-label="Schrift"></div>
+        <p class="hint" id="fontHint" hidden>Zwei Zeilen passen nur mit der kleinen Pixelschrift auf 16 LEDs Höhe.</p>
+        <label class="check" id="smoothWrap"><input type="checkbox" name="z-smooth"><span>Kanten glätten (Zwischentöne statt harter Pixel)</span></label>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Bewegung</span>
+        <div class="seg" role="radiogroup" aria-label="Bewegung">
+          <label><input type="radio" name="z-effect" value="static"><span>Steht</span></label>
+          <label><input type="radio" name="z-effect" value="scroll"><span>Läuft durch</span></label>
+          <label><input type="radio" name="z-effect" value="blink"><span>Blinkt</span></label>
+        </div>
+      </div>
+
+      <div class="field" id="alignWrap">
+        <span class="field-label">Ausrichtung</span>
+        <div class="seg" role="radiogroup" aria-label="Ausrichtung">
+          <label><input type="radio" name="z-align" value="left"><span>Links</span></label>
+          <label><input type="radio" name="z-align" value="center"><span>Mitte</span></label>
+          <label><input type="radio" name="z-align" value="right"><span>Rechts</span></label>
+        </div>
+      </div>
+
+      <label class="field range" id="speedWrap">
+        <span class="field-label">Tempo <output id="speedOut"></output></span>
+        <input type="range" name="z-speed" min="8" max="100" step="1">
+      </label>
+      <label class="field range" id="blinkWrap">
+        <span class="field-label">Blinken <output id="blinkOut"></output></span>
+        <input type="range" name="z-blinkHz" min="0.5" max="4" step="0.5">
+      </label>
+    </fieldset>
+
+    <fieldset class="col col-color">
+      <legend>Farbe</legend>
+      <div class="seg" role="radiogroup" aria-label="Farbart">
+        <label><input type="radio" name="z-colorMode" value="solid"><span>Eine Farbe</span></label>
+        <label><input type="radio" name="z-colorMode" value="gradient"><span>Verlauf</span></label>
+        <label><input type="radio" name="z-colorMode" value="rainbow"><span>Regenbogen</span></label>
+      </div>
+
+      <div class="field" id="c1Wrap">
+        <span class="field-label" id="c1Label">Textfarbe</span>
+        <div class="swatches" data-field="c1" role="radiogroup" aria-labelledby="c1Label"></div>
+      </div>
+      <div class="field" id="c2Wrap">
+        <span class="field-label" id="c2Label">Endfarbe des Verlaufs</span>
+        <div class="swatches" data-field="c2" role="radiogroup" aria-labelledby="c2Label"></div>
+      </div>
+      <div class="field">
+        <span class="field-label" id="bgLabel">Hintergrund</span>
+        <div class="swatches small" data-field="bg" role="radiogroup" aria-labelledby="bgLabel"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="col col-display">
+      <legend>Anzeige</legend>
+      <div class="field">
+        <span class="field-label">Aufteilung der drei Panels</span>
+        <div class="layout-opts" role="radiogroup" aria-label="Aufteilung">
+          <label><input type="radio" name="layout" value="same"><span><b>Überall gleich</b>Jedes Panel zeigt denselben Text.</span></label>
+          <label><input type="radio" name="layout" value="each"><span><b>Jedes Panel einzeln</b>Panel in der Vorschau anklicken und bearbeiten.</span></label>
+          <label><input type="radio" name="layout" value="span"><span><b>Durchgehend</b>Ein Text über alle 288 Spalten.</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Helligkeit <output id="brightOut"></output></span>
+        <div class="seg" role="radiogroup" aria-label="Helligkeitsart">
+          <label><input type="radio" name="bmode" value="level"><span>Fest</span></label>
+          <label><input type="radio" name="bmode" value="auto"><span>Sensor</span></label>
+          <label><input type="radio" name="bmode" value="off"><span>Aus</span></label>
+        </div>
+        <input type="range" id="bright" min="10" max="100" step="10" aria-label="Helligkeit in Prozent">
+        <p class="hint">Wird sofort ans Display geschickt. Noch experimentell: Das Display speichert den Wert, zeigt ihn in Tests aber nicht immer.</p>
+        <p class="result" id="brightResult" aria-live="polite"></p>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Uhr des Displays</span>
+        <button type="button" class="quiet" id="clock">Auf jetzt stellen</button>
+        <p class="result" id="clockResult" aria-live="polite"></p>
+      </div>
+    </fieldset>
+  </form>
+
+  <section class="scenes" id="scenesPanel" role="tabpanel" aria-labelledby="tabScenes" hidden>
+    <form class="ai" id="aiForm" autocomplete="off">
+      <label for="aiPrompt" class="ai-title">Mit Claude erzeugen</label>
+      <p class="hint">Beschreibe, was auf dem Display passieren soll. Claude schreibt daraus eine Animation, du siehst sie oben in der Vorschau und entscheidest dann, ob sie gesendet oder gespeichert wird.</p>
+      <div class="ai-row">
+        <textarea id="aiPrompt" rows="2" maxlength="2000" placeholder="Zum Beispiel: Ein kleines Segelboot fährt bei Sonnenuntergang über das Meer, Möwen fliegen vorbei"></textarea>
+        <button type="submit" class="ai-go" id="aiGo">Erzeugen</button>
+      </div>
+      <div class="ai-opts">
+        <div class="ai-examples" id="aiExamples" aria-label="Beispiele"></div>
+        <label class="check" id="aiModifyWrap" hidden><input type="checkbox" id="aiModify"><span>Die gezeigte Animation ändern statt eine neue zu erzeugen</span></label>
+      </div>
+      <p class="result" id="aiResult" aria-live="polite"></p>
+    </form>
+    <div class="lib">
+      <h2>Bibliothek</h2>
+      <p class="hint" id="sceneEmpty" hidden>Noch keine Animationen gespeichert.</p>
+      <p class="result err" id="libError" aria-live="polite"></p>
+      <ol id="sceneList" class="lib-list"></ol>
+      <div class="lib-actions">
+        <label class="quiet file-btn"><input type="file" id="sceneFile" accept=".json,application/json" class="sr">Datei importieren</label>
+        <button type="button" class="quiet" id="sceneNew">Neue Animation</button>
+      </div>
+      <p class="hint">Eine .scene.json-Datei lässt sich auch einfach hierher ziehen.</p>
+    </div>
+
+    <div class="scene-detail">
+      <h2 id="sceneTitle">Keine Animation gewählt</h2>
+      <p class="scene-meta" id="sceneMeta"></p>
+      <ol id="sceneRows" class="scene-rows" aria-label="Szenen in der Vorschau"></ol>
+
+      <div class="scene-file">
+        <label class="field">
+          <span class="field-label">Dateiname in der Bibliothek</span>
+          <input type="text" id="sceneName" class="name-input" maxlength="64" spellcheck="false" autocomplete="off">
+        </label>
+        <div class="scene-actions">
+          <button type="button" class="quiet strong" id="sceneSave">In Bibliothek speichern</button>
+          <button type="button" class="quiet" id="sceneExport">Als Datei exportieren</button>
+          <button type="button" class="quiet danger" id="sceneDelete" hidden>Löschen</button>
+        </div>
+        <p class="result" id="sceneResult" aria-live="polite"></p>
+      </div>
+
+      <details class="editor" id="sceneEditorBox">
+        <summary>JSON bearbeiten</summary>
+        <p class="hint">Jede Änderung erscheint sofort in der Vorschau. Das Format steht in docs/scene-format.md.</p>
+        <textarea id="sceneJson" spellcheck="false" autocapitalize="off" aria-label="Animation als JSON" aria-describedby="sceneError"></textarea>
+        <p class="result err" id="sceneError" aria-live="polite"></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="history" aria-labelledby="histTitle" id="historyWrap" hidden>
+    <h2 id="histTitle">Zuletzt gesendet</h2>
+    <p class="hint">Antippen lädt den Entwurf wieder, gesendet wird erst mit dem Knopf unten.</p>
+    <ol id="history"></ol>
+  </section>
+</main>
+
+<footer class="sendbar">
+  <div class="sendbar-inner">
+    <div class="summary">
+      <p id="summary"></p>
+      <p id="warn" class="warn" aria-live="polite"></p>
+    </div>
+    <button type="button" id="send" class="send"><span class="send-led" aria-hidden="true"></span><span id="sendLabel">Auf Display senden</span></button>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,575 @@
+{
+ "format": "ko5g-scene",
+ "version": 1,
+ "title": "Segelboot im Sonnenuntergang",
+ "fps": 20,
+ "colors": {
+  "sky1": "#3c1464",
+  "sky2": "#6e1e78",
+  "sky3": "#b4285a",
+  "sky4": "#e6503c",
+  "sky5": "#ff8c28",
+  "sun": "#ffdc32",
+  "sunCore": "#fff078",
+  "sea1": "#1e3c96",
+  "sea2": "#142878",
+  "horizon": "#c8464b",
+  "wave": "#5078dc",
+  "glow1": "#ffb43c",
+  "glow2": "#ff8c28",
+  "foam": "#c8dcff",
+  "white": "#ffffff",
+  "sailShade": "#ffe6c8",
+  "mast": "#c8a064",
+  "flag": "#ff2828",
+  "hull": "#a0461e",
+  "hullDark": "#6e2814",
+  "star": "#ffc8f0"
+ },
+ "sprites": {
+  "sun": {
+   "frames": [
+    [
+     "....####....",
+     "..##oooo##..",
+     ".##oooooo##.",
+     ".#oooooooo#.",
+     "#oooooooooo#",
+     "#oooooooooo#",
+     "#oooooooooo#"
+    ]
+   ],
+   "colors": {
+    "#": "sun",
+    "o": "sunCore"
+   }
+  },
+  "boat": {
+   "frames": [
+    [
+     ".......|f......",
+     ".......|ff.....",
+     "......W|.......",
+     ".....WW|S......",
+     "....WWW|SS.....",
+     "...WWWW|SSS....",
+     "..WWWWW|SSSS...",
+     ".WWWWWW|SSSSS..",
+     "WWWWWWW|SSSSSS.",
+     "HHHHHHHHHHHHHHH",
+     ".HHHHHHHHHHHHH.",
+     "..hhhhhhhhhhh.."
+    ],
+    [
+     ".......|.f.....",
+     ".......|ff.....",
+     "......W|.......",
+     ".....WW|S......",
+     "....WWW|SS.....",
+     "...WWWW|SSS....",
+     "..WWWWW|SSSS...",
+     ".WWWWWW|SSSSS..",
+     "WWWWWWW|SSSSSS.",
+     "HHHHHHHHHHHHHHH",
+     ".HHHHHHHHHHHHH.",
+     "..hhhhhhhhhhh.."
+    ]
+   ],
+   "colors": {
+    "|": "mast",
+    "f": "flag",
+    "W": "white",
+    "S": "sailShade",
+    "H": "hull",
+    "h": "hullDark"
+   }
+  },
+  "gull": {
+   "frames": [
+    [
+     "##...##",
+     "..#.#..",
+     "...#..."
+    ],
+    [
+     ".......",
+     "###.###",
+     "...#..."
+    ]
+   ],
+   "colors": {
+    "#": "white"
+   }
+  }
+ },
+ "mode": "manual_spots",
+ "scenes": [
+  {
+   "name": "Abendsegeln",
+   "frames": 400,
+   "layers": [
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 0,
+     "w": 288,
+     "h": 2,
+     "color": "sky1"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 2,
+     "w": 288,
+     "h": 2,
+     "color": "sky2"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 4,
+     "w": 288,
+     "h": 2,
+     "color": "sky3"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 6,
+     "w": 288,
+     "h": 2,
+     "color": "sky4"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 8,
+     "w": 288,
+     "h": 2,
+     "color": "sky5"
+    },
+    {
+     "type": "pixels",
+     "x": 0,
+     "y": 0,
+     "blink": [
+      30,
+      10
+     ],
+     "points": [
+      [
+       12,
+       1,
+       "star"
+      ],
+      [
+       57,
+       0,
+       "star"
+      ],
+      [
+       131,
+       1,
+       "star"
+      ]
+     ]
+    },
+    {
+     "type": "pixels",
+     "x": 0,
+     "y": 0,
+     "blink": [
+      25,
+      15
+     ],
+     "from": 10,
+     "points": [
+      [
+       34,
+       2,
+       "star"
+      ],
+      [
+       96,
+       1,
+       "star"
+      ],
+      [
+       268,
+       0,
+       "star"
+      ]
+     ]
+    },
+    {
+     "type": "sprite",
+     "sprite": "sun",
+     "x": 200,
+     "y": 3
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 10,
+     "w": 288,
+     "h": 2,
+     "color": "sea1"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 12,
+     "w": 288,
+     "h": 4,
+     "color": "sea2"
+    },
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 10,
+     "w": 288,
+     "h": 1,
+     "color": "horizon"
+    },
+    {
+     "type": "pattern",
+     "x": 0,
+     "y": 11,
+     "w": 288,
+     "h": 5,
+     "rows": [
+      "....###.............###.........",
+      "................................",
+      "..........####..............##..",
+      "................................",
+      "##.................####........."
+     ],
+     "colors": {
+      "#": "wave"
+     },
+     "offset": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        400,
+        128
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 400
+     }
+    },
+    {
+     "type": "pattern",
+     "x": 198,
+     "y": 11,
+     "w": 16,
+     "h": 1,
+     "rows": [
+      "###.##.####.#.##"
+     ],
+     "colors": {
+      "#": "glow1"
+     },
+     "offset": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        40,
+        16
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 40
+     }
+    },
+    {
+     "type": "pattern",
+     "x": 201,
+     "y": 13,
+     "w": 10,
+     "h": 1,
+     "rows": [
+      "##.###.#.#"
+     ],
+     "colors": {
+      "#": "glow2"
+     },
+     "offset": {
+      "keys": [
+       [
+        0,
+        10
+       ],
+       [
+        40,
+        0
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 40
+     }
+    },
+    {
+     "type": "pattern",
+     "x": 203,
+     "y": 15,
+     "w": 6,
+     "h": 1,
+     "rows": [
+      "##.##."
+     ],
+     "colors": {
+      "#": "glow2"
+     },
+     "offset": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        30,
+        6
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 30
+     }
+    },
+    {
+     "type": "pixels",
+     "x": {
+      "keys": [
+       [
+        0,
+        -16
+       ],
+       [
+        400,
+        290
+       ]
+      ],
+      "ease": "linear"
+     },
+     "y": 0,
+     "blink": [
+      6,
+      2
+     ],
+     "points": [
+      [
+       -2,
+       12,
+       "foam"
+      ],
+      [
+       -4,
+       13,
+       "foam"
+      ],
+      [
+       -7,
+       12,
+       "foam"
+      ],
+      [
+       -10,
+       13,
+       "foam"
+      ],
+      [
+       -14,
+       12,
+       "wave"
+      ]
+     ]
+    },
+    {
+     "type": "sprite",
+     "sprite": "boat",
+     "x": {
+      "keys": [
+       [
+        0,
+        -16
+       ],
+       [
+        400,
+        290
+       ]
+      ],
+      "ease": "linear"
+     },
+     "y": {
+      "keys": [
+       [
+        0,
+        1
+       ],
+       [
+        20,
+        2
+       ],
+       [
+        40,
+        1
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 40
+     },
+     "cycle": {
+      "seq": [
+       0,
+       1
+      ],
+      "every": 6,
+      "offset": 0
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "gull",
+     "wrap": true,
+     "x": {
+      "keys": [
+       [
+        0,
+        288
+       ],
+       [
+        400,
+        0
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 400
+     },
+     "y": {
+      "keys": [
+       [
+        0,
+        1
+       ],
+       [
+        50,
+        3
+       ],
+       [
+        100,
+        1
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 100
+     },
+     "cycle": {
+      "seq": [
+       0,
+       1
+      ],
+      "every": 4,
+      "offset": 0
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "gull",
+     "wrap": true,
+     "x": {
+      "keys": [
+       [
+        0,
+        100
+       ],
+       [
+        400,
+        -188
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 400
+     },
+     "y": {
+      "keys": [
+       [
+        0,
+        4
+       ],
+       [
+        40,
+        2
+       ],
+       [
+        80,
+        4
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 80
+     },
+     "cycle": {
+      "seq": [
+       0,
+       1
+      ],
+      "every": 5,
+      "offset": 2
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "gull",
+     "wrap": true,
+     "x": {
+      "keys": [
+       [
+        0,
+        200
+       ],
+       [
+        400,
+        -376
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 400
+     },
+     "y": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        25,
+        2
+       ],
+       [
+        50,
+        0
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 50
+     },
+     "cycle": {
+      "seq": [
+       0,
+       1
+      ],
+      "every": 3,
+      "offset": 1
+     }
+    }
+   ]
+  }
+ ]
+}

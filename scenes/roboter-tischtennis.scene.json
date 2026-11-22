@@ -1,0 +1,436 @@
+{
+ "format": "ko5g-scene",
+ "version": 1,
+ "title": "Roboter-Tischtennis",
+ "fps": 20,
+ "mode": "auto",
+ "colors": {
+  "paddleL": "#ff1e1e",
+  "paddleR": "#00ff64",
+  "grey": "#a0a0a0",
+  "wheel": "#787878",
+  "ball": "#ffa000",
+  "table": "#1e64ff",
+  "tableEdge": "#0a3cb4",
+  "net": "#dcdcdc",
+  "leg": "#787878"
+ },
+ "sprites": {
+  "robot": {
+   "frames": [
+    [
+     "...a..........",
+     "...h..........",
+     ".hhhhhh.......",
+     ".hhhehe.......",
+     ".hhhhhh.......",
+     "..hhhh....ppp.",
+     "...gg....ppppp",
+     ".bbbbbb..ppppp",
+     ".bblbbbgggppp.",
+     ".bbbbbb.......",
+     ".bbbbbb.......",
+     "..bbbb........",
+     "..g..g........",
+     "..g..g........",
+     ".www.www......",
+     ".www.www......"
+    ],
+    [
+     "...a..........",
+     "...h..........",
+     ".hhhhhh...ppp.",
+     ".hhhehe..ppppp",
+     ".hhhhhh..ppppp",
+     "..hhhh....ppp.",
+     "...gg.....g...",
+     ".bbbbbb..g....",
+     ".bblbbbgg.....",
+     ".bbbbbb.......",
+     ".bbbbbb.......",
+     "..bbbb........",
+     "..g..g........",
+     "..g..g........",
+     ".www.www......",
+     ".www.www......"
+    ]
+   ],
+   "colors": {
+    "a": "#ff0000",
+    "h": "#50c8ff",
+    "e": "#ffff00",
+    "b": "#1e5aff",
+    "l": "#00ff00",
+    "g": "grey",
+    "w": "wheel",
+    "p": "paddleL"
+   }
+  },
+  "ball": {
+   "frames": [
+    [
+     "oo",
+     "oo"
+    ]
+   ],
+   "colors": {
+    "o": "ball"
+   }
+  }
+ },
+ "scenes": [
+  {
+   "name": "Ballwechsel",
+   "frames": 320,
+   "layers": [
+    {
+     "type": "rect",
+     "x": 40,
+     "y": 11,
+     "w": 209,
+     "h": 1,
+     "color": "table"
+    },
+    {
+     "type": "rect",
+     "x": 40,
+     "y": 12,
+     "w": 209,
+     "h": 1,
+     "color": "tableEdge"
+    },
+    {
+     "type": "rect",
+     "x": 56,
+     "y": 13,
+     "w": 2,
+     "h": 3,
+     "color": "leg"
+    },
+    {
+     "type": "rect",
+     "x": 231,
+     "y": 13,
+     "w": 2,
+     "h": 3,
+     "color": "leg"
+    },
+    {
+     "type": "pattern",
+     "x": 143,
+     "y": 7,
+     "w": 2,
+     "h": 4,
+     "rows": [
+      "#.",
+      ".#"
+     ],
+     "colors": {
+      "#": "net"
+     }
+    },
+    {
+     "type": "rect",
+     "x": 143,
+     "y": 6,
+     "w": 2,
+     "h": 1,
+     "color": "#ffffff"
+    },
+    {
+     "type": "text",
+     "text": "PING",
+     "color": "#ffff00",
+     "scale": 1,
+     "region": [
+      24,
+      60
+     ],
+     "align": "left",
+     "y": -4,
+     "visible": {
+      "keys": [
+       [
+        0,
+        1
+       ],
+       [
+        10,
+        0
+       ],
+       [
+        80,
+        0
+       ]
+      ],
+      "ease": "step",
+      "repeat": 80
+     }
+    },
+    {
+     "type": "text",
+     "text": "PONG",
+     "color": "#00ffff",
+     "scale": 1,
+     "region": [
+      204,
+      60
+     ],
+     "align": "right",
+     "y": -4,
+     "visible": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        40,
+        1
+       ],
+       [
+        50,
+        0
+       ],
+       [
+        80,
+        0
+       ]
+      ],
+      "ease": "step",
+      "repeat": 80
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "robot",
+     "x": 4,
+     "y": 0,
+     "frame": {
+      "keys": [
+       [
+        0,
+        1
+       ],
+       [
+        4,
+        0
+       ],
+       [
+        76,
+        1
+       ],
+       [
+        80,
+        1
+       ]
+      ],
+      "ease": "step",
+      "repeat": 80
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "robot",
+     "x": 270,
+     "y": 0,
+     "flip": 1,
+     "colors": {
+      "a": "#00ff00",
+      "h": "#ffb400",
+      "e": "#00ffff",
+      "b": "#ff5000",
+      "l": "#ffff00",
+      "p": "paddleR"
+     },
+     "frame": {
+      "keys": [
+       [
+        0,
+        0
+       ],
+       [
+        36,
+        1
+       ],
+       [
+        44,
+        0
+       ],
+       [
+        80,
+        0
+       ]
+      ],
+      "ease": "step",
+      "repeat": 80
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "ball",
+     "x": {
+      "keys": [
+       [
+        0,
+        18
+       ],
+       [
+        40,
+        268
+       ],
+       [
+        80,
+        18
+       ]
+      ],
+      "ease": "linear",
+      "repeat": 80
+     },
+     "y": {
+      "keys": [
+       [
+        0,
+        5
+       ],
+       [
+        14,
+        1
+       ],
+       [
+        29,
+        9
+       ],
+       [
+        40,
+        5
+       ],
+       [
+        54,
+        1
+       ],
+       [
+        69,
+        9
+       ],
+       [
+        80,
+        5
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 80
+     }
+    }
+   ]
+  },
+  {
+   "name": "Jubel",
+   "frames": 120,
+   "layers": [
+    {
+     "type": "rect",
+     "x": 0,
+     "y": 15,
+     "w": 288,
+     "h": 1,
+     "color": "#1e3c8c"
+    },
+    {
+     "type": "text",
+     "text": "ROBO-PINGPONG",
+     "color": "#ffdc00",
+     "scale": 2,
+     "align": "center",
+     "blink": [
+      30,
+      4
+     ]
+    },
+    {
+     "type": "sprite",
+     "sprite": "robot",
+     "x": 4,
+     "y": 0,
+     "cycle": {
+      "seq": [
+       0,
+       1
+      ],
+      "every": 5,
+      "offset": 0
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "ball",
+     "x": 22,
+     "y": {
+      "keys": [
+       [
+        0,
+        10
+       ],
+       [
+        10,
+        1
+       ],
+       [
+        20,
+        10
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 20
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "robot",
+     "x": 270,
+     "y": 0,
+     "flip": 1,
+     "colors": {
+      "a": "#00ff00",
+      "h": "#ffb400",
+      "e": "#00ffff",
+      "b": "#ff5000",
+      "l": "#ffff00",
+      "p": "paddleR"
+     },
+     "cycle": {
+      "seq": [
+       1,
+       0
+      ],
+      "every": 5,
+      "offset": 0
+     }
+    },
+    {
+     "type": "sprite",
+     "sprite": "ball",
+     "x": 264,
+     "y": {
+      "keys": [
+       [
+        0,
+        1
+       ],
+       [
+        10,
+        10
+       ],
+       [
+        20,
+        1
+       ]
+      ],
+      "ease": "smooth",
+      "repeat": 20
+     }
+    }
+   ]
+  }
+ ]
+}

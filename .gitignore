@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# device-specific backups (configuration of a real installation)
+backups/
+
+# vendor files (extract yourself, see tools/extract_vendor_fonts.py)
+ko5g/assets/*.bin
+
+# macOS
+.DS_Store
+
+# personal scenes, not part of the examples
+scenes/braunschweig-skyline.scene.json
+scenes/eintracht-braunschweig.scene.json
