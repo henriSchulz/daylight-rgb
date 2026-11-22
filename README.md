@@ -1,4 +1,4 @@
-# daylight-rgb
+# Daylight RGB
 
 Open control software for **RGB Technology colour LED signs** (controller "Ko5G"): show any text,
 images and pixel animations over Ethernet, from the command line, a Python library, an HTTP API or a
