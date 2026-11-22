@@ -8,6 +8,11 @@ The vendor only ships apps that switch between pre-loaded content. This project 
 directly, with a protocol that was reconstructed for interoperability and documented in
 [docs/protocol.md](docs/protocol.md).
 
+[![A sailboat at sunset animation running on a 288 x 16 sign](docs/media/demo.gif)](docs/media/demo.mp4)
+
+*The example animation "Segelboot im Sonnenuntergang" on the real sign
+([video](docs/media/demo.mp4)).*
+
 > Not affiliated with or endorsed by RGB Technology. Product names are trademarks of their owners.
 > Uploading content **replaces everything stored on the sign**, and the original content cannot be read
 > back. Use at your own risk.
@@ -72,10 +77,16 @@ firmware versions are welcome.
 
 ## TODO
 
-- [ ] **Art-Net interface**: accept Art-Net (DMX over UDP) so lighting consoles and tools such as
-  xLights can drive the sign. Open question: the known protocol cannot stream, because every upload
-  replaces the stored content, so this needs either a streaming mode in the controller or a bridge
-  that turns Art-Net input into short uploads.
+- [ ] **Raspberry Pi as target platform**: run the server on a Raspberry Pi next to the sign, as a
+  small always-on controller (service setup, wired Ethernet to the sign, Wi-Fi to the home network).
+- [ ] **Lighting console**: connect the sign to a lighting desk so it can be cued like any other
+  fixture during a show.
+- [ ] **Lighting software**: integrate with lighting control software (for example QLC+ or xLights),
+  most likely through the Art-Net interface below.
+- [ ] **Art-Net interface**: accept Art-Net (DMX over UDP) so consoles and software can drive the sign.
+  Open question: the known protocol cannot stream, because every upload replaces the stored content,
+  so this needs either a streaming mode in the controller or a bridge that turns Art-Net input into
+  short uploads or switches between pre-loaded spots.
 - [ ] **Wireless connection**: control the sign over Wi-Fi instead of Ethernet, through the
   controller's own access point or by joining it to an existing network.
 - [ ] **Android app**: a phone app for text, animations and the library, built on the HTTP API.
